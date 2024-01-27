@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import mapImage from './assets/map.png';
-import detailsImage from './assets/map.png';
+import detailsImage from './assets/details.png';
 // import detailsImage from './assets/details.png';
 
 function SearchComponent() {
@@ -39,12 +39,12 @@ function SearchComponent() {
 function Popup({ imageUrl, onClose }) {
     return (
         <div className="fill-screen black-transparent center-x center-y" onClick={onClose}>
-            <img src={detailsImage} alt="Lot Details"/>
+            <img src={detailsImage} alt="Lot Details" style={{height: '100%'}}/>
         </div>
     );
 }
 
-function Tile() {
+function Tile(props) {
     const [isPopupVisible, setIsPopupVisible] = useState(false);
 
     const showPopup = () => {
@@ -52,13 +52,11 @@ function Tile() {
     };
 
     const closePopup = () => {
-		console.log("pop up");
         setIsPopupVisible(false);
     };
 
 return (
-	<div onClick={showPopup}
-	style={{
+	<div style={{
 		width: '100%', 
 		height: '100%', 
 		padding: '12px', 
@@ -70,7 +68,9 @@ return (
 		gap: '10px', 
 		display: 'inline-flex'
 	}}>
-		<div style={{
+		{isPopupVisible && <Popup imageUrl={detailsImage} onClose={() => closePopup()} />}
+		<div onClick={ () => { setTimeout(showPopup, 100) } }
+		style={{
 			alignSelf: 'stretch', 
 			height: '102px', 
 			flexDirection: 'column', 
@@ -96,7 +96,7 @@ return (
 					lineHeight: '28px', 
 					wordWrap: 'break-word'
 				}}>
-					Lot 48Y
+					Lot {props.lot}Y
 				</div>
 				<div style={{
 					alignSelf: 'stretch', 
@@ -107,7 +107,7 @@ return (
 					lineHeight: '16px', 
 					wordWrap: 'break-word'
 				}}>
-					South end of LaVell Edwards Stadium
+					{props.addy}
 				</div>
 			</div>
 			<div style={{
@@ -118,22 +118,21 @@ return (
 				lineHeight: '16px', 
 				wordWrap: 'break-word'
 			}}>
-				121 Spots Remain
+				{props.spots} Spots Remain
 			</div>
 		</div>
-		{isPopupVisible && <Popup imageUrl={detailsImage} onClose={closePopup} />}
 	</div>
 )
 }
 
-function TileRow() {
+function TileRow(props) {
 return (
 		<li>
 			<div className="flex-r">
 				<div className="spacer"></div>
-				<Tile/>
+				<Tile {...props}/>
 				<div className="spacer"></div>
-				<Tile/>
+				<Tile {...props}/>
 				<div className="spacer"></div>
 			</div>
 		</li>
@@ -141,12 +140,29 @@ return (
 }
 
 function LotTiles() {
-	const componentsArray = Array.from({ length: 8 }, (_, index) => index);
+	const tileData = [
+		{ lot: '36', addy: '990 N 150 E' },
+		{ lot: '47', addy: '338 Stadium Ave' },
+		{ lot: '46', addy: '980 N Freedom Blvd' },
+		{ lot: '46', addy: '1080 N University Ave' },
+		{ lot: '48', addy: '1700 N Canyon Rd' },
+		{ lot: '24', addy: '1620 900 E' },
+		{ lot: '50', addy: '703 E University Pkwy' },
+		{ lot: '61', addy: '2230 N 100 E' },
+		{ lot: '61', addy: '2400 N Canyon Rd' },
+		{ lot: '34', addy: '800 N 150 E' },
+		{ lot: '49', addy: 'E University Parkway' },
+		{ lot: '57', addy: '100 E 700 N' }
+	];
 
 return (
 	<ul className="blocks">
-		{componentsArray.map((_, index) => (
-			<TileRow key={index}/>
+		{tileData.map((item, index) => (
+			<TileRow
+				key={index}
+				lot={item.lot}
+				addy={`Location: ${item.addy}`}
+			/>
 		))}
 	</ul>
 )
