@@ -56,29 +56,9 @@ function Tile(props) {
     };
 
 return (
-	<div style={{
-		width: '100%', 
-		height: '100%', 
-		padding: '12px', 
-		background: '#F5F5F5', 
-		borderRadius: '12px', 
-		flexDirection: 'column', 
-		justifyContent: 'flex-start', 
-		alignItems: 'flex-start', 
-		gap: '10px', 
-		display: 'inline-flex'
-	}}>
+	<div className="tile-outer-div">
 		{isPopupVisible && <Popup imageUrl={detailsImage} onClose={() => closePopup()} />}
-		<div onClick={ () => { setTimeout(showPopup, 100) } }
-		style={{
-			alignSelf: 'stretch', 
-			height: '102px', 
-			flexDirection: 'column', 
-			justifyContent: 'flex-start', 
-			alignItems: 'flex-start', 
-			gap: '22px', 
-			display: 'flex'
-		}}>
+		<div className="tile-body" onClick={ () => { setTimeout(showPopup, 100) } }>
 			<div style={{
 				alignSelf: 'stretch', 
 				height: '64px', 
@@ -156,12 +136,13 @@ function LotTiles() {
 	];
 
 return (
-	<ul className="blocks">
+	<ul className="blocks grid">
 		{tileData.map((item, index) => (
-			<TileRow
+			<Tile
 				key={index}
 				lot={item.lot}
 				addy={`Location: ${item.addy}`}
+				spots="100"
 			/>
 		))}
 	</ul>
