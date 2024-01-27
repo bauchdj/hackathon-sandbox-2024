@@ -1,7 +1,89 @@
-function App() {
+import mapImage from './assets/map.png';
+import React, { useState } from 'react';
+
+function SearchComponent() {
+	// State to keep track of the search input
+	const [searchTerm, setSearchTerm] = useState('');
+
+	// Function to handle the change in the input field
+	const handleInputChange = (event) => {
+		setSearchTerm(event.target.value);
+	};
+
+	// Function to handle the form submission
+	const handleSubmit = (event) => {
+		event.preventDefault(); // Prevent the default form submit action
+		console.log('Search term submitted:', searchTerm);
+
+		// You can call a search function or API here with searchTerm
+	};
+
 	return (
 		<div>
-			<TileList />
+			<form onSubmit={handleSubmit}>
+				<input
+					type="text"
+					placeholder="Where would you like to go?"
+					value={searchTerm}
+					onChange={handleInputChange}
+				/>
+				<button type="submit">Search</button>
+			</form>
+		</div>
+	);
+}
+
+function LotTiles() {
+return ( <div>
+	<ul class="blocks">
+		<li>
+			<p><span>block</span>2</p>
+		</li>
+		<li>
+			<p><span>block</span>3</p>
+		</li>
+		<li>
+			<p><span>block</span>4</p>
+		</li>
+		<li>
+			<p><span>block</span>5</p>
+		</li>
+		<li>
+			<p><span>block</span>7</p>
+		</li>
+		<li>
+			<p><span>block</span>8</p>
+		</li>
+	</ul>
+</div> )
+}
+
+function App() {
+	return (
+		<div id="body" className="flex-c">
+			<div className="flex-1 overflow-hidden">
+				<img id="map-img" src={mapImage} alt="Parking Lot Map" />
+			</div>
+			<div className="flex-2 overflow-hidden">
+				<div className="lower-container flex-c">
+					<div className="flex-1">
+						<div className="h-100 flex-c center-x center-y">
+							<SearchComponent/>
+						</div>
+					</div>
+					{/* <div className="flex-8 overflow-y-auto overflow-x-hidden"> */}
+					<div className="flex-8 overflow-y-auto">
+						<div className="h-100 flex-c">
+							<div className="flex-1 center-y">
+								<div id="lot-list-title">Available Lots</div>
+							</div>
+							<div className="flex-8">
+								<LotTiles/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	)
 };
@@ -26,11 +108,11 @@ function TileList() {
 		<div>
 			{tileData.map((tile, index) => (
 				<Tile
-                    key={index}
-                    value={index + 1}
-                    name={tile.name}
-                    description={`Location: ${tile.description}`}
-                />
+					key={index}
+					value={index + 1}
+					name={tile.name}
+					description={`Location: ${tile.description}`}
+				/>
 			))}
 		</div>
 	);

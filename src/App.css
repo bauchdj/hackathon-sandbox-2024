@@ -1,118 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Rosario);
+@import url(https://fonts.googleapis.com/css?family=Merriweather+Sans:700,400);
+
+body > #test* {
+  box-sizing: border-box;
+}
+
+li,ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.blocks li {
+	margin: 0.5em 0 0 0;
+    width: 100%;
+}
+
+.blocks span {
+    display: block;
+    font-size: .4em;
+    font-weight: bold;
+}
+
+.blocks p {
+    background: #a39485;
+    padding: 2em 2em;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+    font-size: 2em;
+    text-shadow: 0 1px 1px rgba(0,0,0,.5);
+}
+
+p {
+  margin: 0;
+}
+
+/* */
+
 body {
-	margin: 0;
+	margin: 0; 
 	padding: 0;
 }
 
-.wrapper {
+#body {
+	height: 100vh;
+	margin: 0;
+}
+
+#map-img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
+
+#lot-list-title {
+	margin: 0 0 0 20px;
+	color: #2E8E00; 
+	font-size: 28px;
+	font-family: 'Space Grotesk';
+	font-weight: 700;
+	line-height: 36px;
+	word-wrap: break-word;
+}
+
+.overflow-auto {
+	overflow: auto;
+}
+
+.overflow-y-auto {
+	overflow-y: auto;
+}
+
+.overflow-x-auto {
+	overflow-x: auto;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+.overflow-y-hidden {
+	overflow-y: hidden;
+}
+
+.overflow-x-hidden {
+	overflow-x: hidden;
+}
+
+.lower-container {
+	background-color: #EBEBEB;
+	border-radius: 20px;
+	height: 100%;
+}
+
+.black-transparent {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.h-100 {
+	height: 100%;
+}
+
+.w-100 {
+	width: 100%;
+}
+
+.fill-screen {
+	position: fixed;
+	inset: 0px;
+	height: 100vh;
+}
+
+.center-x {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	margin-top: 40px;
 }
 
-.tileContainer {
-	font-family: 'Open Sans', sans-serif;
-	background-color: #fcfcfc;
-	width: 500px;
-	margin: 5px 0;
-	&:hover div:nth-child(3) {
-		height: 150px;
-		padding-top: 40px;
-	}
-	div:nth-child(1) {
-		font-size: 2em;
-		background-color: #397be5;
-		display: flex;
-		width: 50px;
-		height: 50px;
-		color: #eee;
-		border: 5px solid #fff;
-		align-items: center;
-		justify-content: center;
-		border-radius: 100%;
-		position: relative;
-		float: left;
-		right: 31px;
-		top: -4px;
-		z-index: 3;
-	}
-	div:nth-child(2) {
-		font-size: 2.5em;
-		position: relative;
-		z-index: 2;
-		top: -15px;
-		width: 506px;
-		background-color: #d13434;
-		padding: 13px;
-		border-radius: 10px;
-		color: #eee;
-		font-weight: 600;
-		box-shadow: 0 3px 9px rgba(25, 25, 25, 0.5);
-		transition: 0.3s;
-		span {
-			position: relative;
-			left: -10px;
-			top: -3px;
-		}
-		&:hover {
-			border-radius: 10px 10px 0px 0px;
-		}
-	}
-	div:nth-child(3) {
-		position: relative;
-		top: -45px;
-		overflow: hidden;
-		width: 502px;
-		padding: 15px;
-		transition: 0.5s;
-		box-shadow: 0 3px 8px #ccc;
-		margin-bottom: 20px;
-		height: 0;
-		padding-top: 0px;
-	}
+.center-y {
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
 }
 
-/*
-#root {
-	max-width: 1280px;
-	margin: 0 auto;
-	padding: 2rem;
-	text-align: center;
+.right-x {
+	display: flex;
+	justify-content: right;
+}
+.flex-c {
+	display: flex;
+	flex-direction: column;
 }
 
-.logo {
-	height: 6em;
-	padding: 1.5em;
-	will-change: filter;
-	transition: filter 300ms;
-}
-.logo:hover {
-	filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-	filter: drop-shadow(0 0 2em #61dafbaa);
+.flex-r {
+	display: flex;
+	flex-direction: row;
 }
 
-@keyframes logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+.flex-0-1 {
+	flex: 0 1 auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-	a:nth-of-type(2) .logo {
-		animation: logo-spin infinite 20s linear;
-	}
+.flex-1-0 {
+	flex: 1 0 auto;
 }
 
-.card {
-	padding: 2em;
+.flex-1 {
+	flex: 1;
 }
 
-.read-the-docs {
-	color: #888;
+.flex-2 {
+	flex: 2;
 }
-*/
+
+.flex-3 {
+	flex: 3;
+}
+
+.flex-4 {
+	flex: 4;
+}
+
+.flex-5 {
+	flex: 5;
+}
+
+.flex-6 {
+	flex: 6;
+}
+
+.flex-7 {
+	flex: 7;
+}
+
+.flex-8 {
+	flex: 8;
+}
+
+.flex-9 {
+	flex: 9;
+}
+
+.flex-10 {
+	flex: 10;
+}
+
+.flex-11 {
+	flex: 11;
+}
