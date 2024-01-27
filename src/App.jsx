@@ -1,5 +1,7 @@
-import mapImage from './assets/map.png';
 import React, { useState } from 'react';
+import mapImage from './assets/map.png';
+import detailsImage from './assets/map.png';
+// import detailsImage from './assets/details.png';
 
 function SearchComponent() {
 	// State to keep track of the search input
@@ -19,7 +21,7 @@ function SearchComponent() {
 	};
 
 	return (
-		<div>
+        <div>
 			<form onSubmit={handleSubmit}>
 				<input
 					type="text"
@@ -29,33 +31,125 @@ function SearchComponent() {
 				/>
 				<button type="submit">Search</button>
 			</form>
-		</div>
+        </div>
 	);
 }
 
+
+function Popup({ imageUrl, onClose }) {
+    return (
+        <div className="fill-screen black-transparent center-x center-y" onClick={onClose}>
+            <img src={detailsImage} alt="Lot Details"/>
+        </div>
+    );
+}
+
+function Tile() {
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+    const showPopup = () => {
+        setIsPopupVisible(true);
+    };
+
+    const closePopup = () => {
+		console.log("pop up");
+        setIsPopupVisible(false);
+    };
+
+return (
+	<div onClick={showPopup}
+	style={{
+		width: '100%', 
+		height: '100%', 
+		padding: '12px', 
+		background: '#F5F5F5', 
+		borderRadius: '12px', 
+		flexDirection: 'column', 
+		justifyContent: 'flex-start', 
+		alignItems: 'flex-start', 
+		gap: '10px', 
+		display: 'inline-flex'
+	}}>
+		<div style={{
+			alignSelf: 'stretch', 
+			height: '102px', 
+			flexDirection: 'column', 
+			justifyContent: 'flex-start', 
+			alignItems: 'flex-start', 
+			gap: '22px', 
+			display: 'flex'
+		}}>
+			<div style={{
+				alignSelf: 'stretch', 
+				height: '64px', 
+				flexDirection: 'column', 
+				justifyContent: 'flex-start', 
+				alignItems: 'flex-start', 
+				gap: '4px', 
+				display: 'flex'
+			}}>
+				<div style={{
+					color: '#555555', 
+					fontSize: '23px', 
+					fontFamily: 'Space Grotesk', 
+					fontWeight: 600, 
+					lineHeight: '28px', 
+					wordWrap: 'break-word'
+				}}>
+					Lot 48Y
+				</div>
+				<div style={{
+					alignSelf: 'stretch', 
+					color: '#353535', 
+					fontSize: '11px', 
+					fontFamily: 'Space Grotesk', 
+					fontWeight: 500, 
+					lineHeight: '16px', 
+					wordWrap: 'break-word'
+				}}>
+					South end of LaVell Edwards Stadium
+				</div>
+			</div>
+			<div style={{
+				color: '#349F01', 
+				fontSize: '13px', 
+				fontFamily: 'Space Grotesk', 
+				fontWeight: 500, 
+				lineHeight: '16px', 
+				wordWrap: 'break-word'
+			}}>
+				121 Spots Remain
+			</div>
+		</div>
+		{isPopupVisible && <Popup imageUrl={detailsImage} onClose={closePopup} />}
+	</div>
+)
+}
+
+function TileRow() {
+return (
+		<li>
+			<div className="flex-r">
+				<div className="spacer"></div>
+				<Tile/>
+				<div className="spacer"></div>
+				<Tile/>
+				<div className="spacer"></div>
+			</div>
+		</li>
+)
+}
+
 function LotTiles() {
-return ( <div>
-	<ul class="blocks">
-		<li>
-			<p><span>block</span>2</p>
-		</li>
-		<li>
-			<p><span>block</span>3</p>
-		</li>
-		<li>
-			<p><span>block</span>4</p>
-		</li>
-		<li>
-			<p><span>block</span>5</p>
-		</li>
-		<li>
-			<p><span>block</span>7</p>
-		</li>
-		<li>
-			<p><span>block</span>8</p>
-		</li>
+	const componentsArray = Array.from({ length: 8 }, (_, index) => index);
+
+return (
+	<ul className="blocks">
+		{componentsArray.map((_, index) => (
+			<TileRow key={index}/>
+		))}
 	</ul>
-</div> )
+)
 }
 
 function App() {
@@ -87,6 +181,9 @@ function App() {
 	)
 };
 
+export default App
+
+/*
 function TileList() {
 	const tileData = [
 		{ name: '36Y', description: '990 N 150 E' },
@@ -127,9 +224,6 @@ function Tile(props) {
 	)
 }
 
-export default App
-
-/*
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
