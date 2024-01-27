@@ -66,18 +66,17 @@ function App() {
 			</div>
 			<div className="flex-2 overflow-hidden">
 				<div className="lower-container flex-c">
-					<div className="flex-1">
+					<div className="flex-1 overflow-hidden">
 						<div className="h-100 flex-c center-x center-y">
 							<SearchComponent/>
 						</div>
 					</div>
-					{/* <div className="flex-8 overflow-y-auto overflow-x-hidden"> */}
-					<div className="flex-8 overflow-y-auto">
+					<div className="flex-8 overflow-hidden">
 						<div className="h-100 flex-c">
 							<div className="flex-1 center-y">
 								<div id="lot-list-title">Available Lots</div>
 							</div>
-							<div className="flex-8">
+							<div className="flex-8 overflow-auto">
 								<LotTiles/>
 							</div>
 						</div>
