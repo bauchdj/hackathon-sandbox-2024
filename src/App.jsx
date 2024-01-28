@@ -93,7 +93,7 @@ function LotTiles({ showPopup, filterTerm }) {
 		{ lot: '47', addy: '338 Stadium Ave' },
 		{ lot: '46', addy: '980 N Freedom Blvd' },
 		{ lot: '46', addy: '1080 N University Ave' },
-		{ lot: '48', addy: '1700 N Canyon Rd' },
+		{ lot: '48', addy: '1700 N Canyon Rd', spots: "121" },
 		{ lot: '24', addy: '1620 900 E' },
 		{ lot: '50', addy: '703 E University Pkwy' },
 		{ lot: '61', addy: '2230 N 100 E' },
@@ -115,7 +115,7 @@ return (
 				key={index}
 				lot={item.lot}
 				addy={`Location: ${item.addy}`}
-				spots="100"
+				spots={item.spots ? item.spots : "100"}
 				showPopup={showPopup}
 			/>
 		))}
