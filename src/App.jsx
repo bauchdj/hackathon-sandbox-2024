@@ -191,7 +191,7 @@ function App() {
 				<div className="lower-container flex-c">
 					<div className="flex-1 overflow-hidden">
 						<div className="h-100 flex-c center-x center-y">
-							<SearchComponent onSearch={onSearch} setFilterTerm={setFilterTerm}/>
+							<SearchComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} onSearch={onSearch}/>
 						</div>
 					</div>
 					<div className="flex-8 overflow-hidden">
