@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import mapImage from './assets/map.png';
 import detailsImage from './assets/details.png';
-// import detailsImage from './assets/details.png';
 
+/*
 function SearchComponent() {
 	// State to keep track of the search input
 	const [searchTerm, setSearchTerm] = useState('');
@@ -21,7 +21,7 @@ function SearchComponent() {
 	};
 
 	return (
-        <div>
+		<div>
 			<form onSubmit={handleSubmit}>
 				<input
 					type="text"
@@ -31,34 +31,51 @@ function SearchComponent() {
 				/>
 				<button type="submit">Search</button>
 			</form>
-        </div>
+		</div>
 	);
 }
+*/
+
+const SearchComponent = ({ searchTerm, setSearchTerm, onSearch }) => {
+
+	const handleInputChange = (event) => {
+		event.stopPropagation();
+		const value = event.target.value;
+		setSearchTerm(value);
+		console.log(searchTerm, value);
+	};
+
+	return (
+		<div className='bar-style'>
+			<input
+				className="search-input-container search-input-dimensions"
+				key="search-bar"
+				value={searchTerm}
+				placeholder="Where would you like to go?"
+				onChange={handleInputChange}
+			/>
+			<div className="search-svg-dimensions" onClick={ event => { onSearch(searchTerm) } }>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<path d="M15.5 14H14.71L14.43 13.73C15.4439 12.554 16.0011 11.0527 16 9.5C16 8.21442 15.6188 6.95772 14.9046 5.8888C14.1903 4.81988 13.1752 3.98676 11.9874 3.49479C10.7997 3.00282 9.49279 2.87409 8.23191 3.1249C6.97104 3.3757 5.81285 3.99477 4.9038 4.90381C3.99476 5.81285 3.3757 6.97104 3.12489 8.23192C2.87409 9.49279 3.00281 10.7997 3.49478 11.9874C3.98675 13.1752 4.81987 14.1903 5.88879 14.9046C6.95771 15.6188 8.21442 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="black" />
+				</svg>
+			</div>
+		</div>
+	);
+};
 
 
 function Popup({ imageUrl, onClose }) {
-    return (
-        <div className="fill-screen black-transparent center-x center-y" onClick={onClose}>
-            <img src={detailsImage} alt="Lot Details" style={{height: '100%'}}/>
-        </div>
-    );
+	return (
+		<div className="fill-screen black-transparent center-x center-y" onClick={onClose}>
+			<img src={detailsImage} alt="Lot Details" style={{height: '100%'}}/>
+		</div>
+	);
 }
 
 function Tile(props) {
-    const [isPopupVisible, setIsPopupVisible] = useState(false);
-
-    const showPopup = () => {
-        setIsPopupVisible(true);
-    };
-
-    const closePopup = () => {
-        setIsPopupVisible(false);
-    };
-
 return (
 	<div className="tile-outer-div">
-		{isPopupVisible && <Popup imageUrl={detailsImage} onClose={() => closePopup()} />}
-		<div className="tile-body" onClick={ () => { setTimeout(showPopup, 100) } }>
+		<div className="tile-body" onClick={ () => { setTimeout(props.showPopup, 100) } }>
 			<div style={{
 				alignSelf: 'stretch', 
 				height: '64px', 
@@ -105,21 +122,7 @@ return (
 )
 }
 
-function TileRow(props) {
-return (
-		<li>
-			<div className="flex-r">
-				<div className="spacer"></div>
-				<Tile {...props}/>
-				<div className="spacer"></div>
-				<Tile {...props}/>
-				<div className="spacer"></div>
-			</div>
-		</li>
-)
-}
-
-function LotTiles() {
+function LotTiles({ showPopup, filterTerm }) {
 	const tileData = [
 		{ lot: '36', addy: '990 N 150 E' },
 		{ lot: '47', addy: '338 Stadium Ave' },
@@ -135,6 +138,11 @@ function LotTiles() {
 		{ lot: '57', addy: '100 E 700 N' }
 	];
 
+		/*
+		{tileData.filter(lotObj => {
+			filterTerm && (lotObj.lot.includes(filterTerm.toLowerCase()) || lotObj.addy.toLowerCase().includes(filterTerm.toLowerCase()))
+		}).map((item, index) => (
+		*/
 return (
 	<ul className="blocks grid">
 		{tileData.map((item, index) => (
@@ -143,6 +151,7 @@ return (
 				lot={item.lot}
 				addy={`Location: ${item.addy}`}
 				spots="100"
+				showPopup={showPopup}
 			/>
 		))}
 	</ul>
@@ -150,8 +159,31 @@ return (
 }
 
 function App() {
+	const [searchTerm, setSearchTerm] = useState('');
+	const [filterTerm, setFilterTerm] = useState(null);
+	const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+	const onInputChange = event => {
+		const value = event.target.value;
+		setSearchTerm(value);
+	};
+
+	const onSearch = () => {
+		setFilterTerm(filterTerm);
+		console.log("Filter value:", filterTerm);
+	};
+
+	const showPopup = () => {
+		setIsPopupVisible(true);
+	};
+
+	const closePopup = () => {
+		setIsPopupVisible(false);
+	};
+
 	return (
 		<div id="body" className="flex-c">
+			{isPopupVisible && <Popup imageUrl={detailsImage} onClose={() => closePopup()} />}
 			<div className="flex-1 overflow-hidden">
 				<img id="map-img" src={mapImage} alt="Parking Lot Map" />
 			</div>
@@ -159,7 +191,7 @@ function App() {
 				<div className="lower-container flex-c">
 					<div className="flex-1 overflow-hidden">
 						<div className="h-100 flex-c center-x center-y">
-							<SearchComponent/>
+							<SearchComponent onSearch={onSearch} setFilterTerm={setFilterTerm}/>
 						</div>
 					</div>
 					<div className="flex-8 overflow-hidden">
@@ -168,7 +200,7 @@ function App() {
 								<div id="lot-list-title">Available Lots</div>
 							</div>
 							<div className="flex-8 overflow-auto">
-								<LotTiles/>
+								<LotTiles showPopup={showPopup} filterTerm={filterTerm}/>
 							</div>
 						</div>
 					</div>
